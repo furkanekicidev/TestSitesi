@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ürün Detay Sayfası</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: #f5f5f5;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .kutu {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 320px;
+      padding: 20px;
+      margin: 10px;
+      text-align: center;
+    }
+    .kutu img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 7px;
+      margin-bottom: 15px;
+      border: 1px solid #eee;
+    }
+    .kutu h2 {
+      font-size: 1.18rem;
+      margin: 12px 0 5px 0;
+      color: #333;
+    }
+    .kutu .fiyat {
+      color: #e56b24;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+    .kutu .aciklama {
+      font-size: 0.98rem;
+      color: #555;
+      margin-bottom: 16px;
+    }
+    .kutu button {
+      background: #4286f4;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .kutu button:hover {
+      background: #3265ab;
+    }
+    #bildirim {
+      display: none;
+      margin-top: 14px;
+      color: green;
+      background: #e9ffe3;
+      border-radius: 4px;
+      padding: 7px 0;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="kutu">
+    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Ürün Görseli">
+    <h2>Bluetooth Kulaklık</h2>
+    <div class="fiyat">₺ 849</div>
+    <div class="aciklama">
+      Kablosuz, kaliteli ses deneyimi. <br>
+      Hafif yapı, kolay kullanım!
+    </div>
+    <button onclick="sepeteEkle()">Sepete Ekle</button>
+    <div id="bildirim">Ürün sepete eklendi!</div>
+  </div>
+  <script>
+    function sepeteEkle() {
+      var bildirim = document.getElementById("bildirim");
+      bildirim.style.display = "block";
+      setTimeout(function() {
+        bildirim.style.display = "none";
+      }, 1300);
+    }
+  </script>
+</body>
+</html>
+
