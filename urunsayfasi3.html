@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ürün Kataloğu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: #f5f5f5;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 30px 0;
+    }
+    .katalog {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .kutu {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      width: 260px;
+      padding: 18px;
+      margin: 10px 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .kutu img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 7px;
+      margin-bottom: 10px;
+      border: 1px solid #eee;
+      background: #fafafa;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .kutu img:hover {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+      transform: scale(1.05);
+    }
+    .kutu h2 {
+      font-size: 1.05rem;
+      margin: 8px 0 4px 0;
+      color: #333;
+      font-weight: 600;
+    }
+    .kutu .fiyat {
+      color: #e56b24;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+    .kutu .aciklama {
+      font-size: 0.96rem;
+      color: #555;
+      margin-bottom: 13px;
+      min-height: 38px;
+    }
+    .kutu button {
+      background: #4286f4;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 20px;
+      font-size: 0.98rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .kutu button:hover {
+      background: #3265ab;
+    }
+    .bildirim {
+      display: none;
+      margin-top: 10px;
+      color: green;
+      background: #e9ffe3;
+      border-radius: 4px;
+      padding: 7px 0;
+      font-size: 0.98rem;
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      text-align: center;
+      z-index: 2;
+    }
+    /* Modal stili */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.67);
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      position: relative;
+      background: transparent;
+      padding: 0;
+      border-radius: 10px;
+      box-shadow: 0 6px 40px rgba(0,0,0,0.28);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+    .modal-content img {
+      max-width: 85vw;
+      max-height: 65vh;
+      border-radius: 10px;
+      background: #fff;
+    }
+    .modal-close {
+      position: absolute;
+      top: -18px;
+      right: -14px;
+      background: #ff4d4d;
+      color: #fff;
+      font-size: 1.45rem;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.11);
+      z-index: 1;
+      transition: background 0.18s;
+    }
+    .modal-close:hover {
+      background: #c82333;
+    }
+    @media (max-width: 900px) {
+      .katalog {
+        gap: 16px;
+      }
+      .kutu {
+        width: 44vw;
+        min-width: 180px;
+        max-width: 320px;
+      }
+    }
+    @media (max-width: 600px) {
+      .kutu {
+        width: 88vw;
+        min-width: 150px;
+      }
+      .katalog {
+        gap: 11px;
+      }
+      .modal-content img {
+        max-height: 45vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="katalog">
+
+    <div class="kutu">
+      <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&q=80" alt="Bluetooth Kulaklık">
+      <h2>Bluetooth Kulaklık</h2>
+      <div class="fiyat">₺ 849</div>
+      <div class="aciklama">Kablosuz, yüksek ses kalitesi. Uzun pil ömrü!</div>
+      <button onclick="sepeteEkle(this)">Sepete Ekle</button>
+      <div class="bildirim">Ürün sepete eklendi!</div>
+    </div>
+    <div class="kutu">
+      <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=400&q=80" alt="Akıllı Saat">
+      <h2>Akıllı Saat</h2>
+      <div class="fiyat">₺ 1299</div>
+      <div class="aciklama">Kalp atış sensörü, adım sayar, suya dayanıklı.</div>
+      <button onclick="sepeteEkle(this)">Sepete Ekle</button>
+      <div class="bildirim">Ürün sepete eklendi!</div>
+    </div>
+    <div class="kutu">
+      <img src="https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?w=400&q=80" alt="Kahve Makinesi">
+      <h2>Kapsül Kahve Makinesi</h2>
+      <div class="fiyat">₺ 1750</div>
+      <div class="aciklama">Hızlı ve kolay kahve hazırlama keyfi.</div>
+      <button onclick="sepeteEkle(this)">Sepete Ekle</button>
+      <div class="bildirim">Ürün sepete eklendi!</div>
+    </div>
+    <div class="kutu">
+      <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&q=80" alt="Çanta">
+      <h2>Sırt Çantası</h2>
+      <div class="fiyat">₺ 420</div>
+      <div class="aciklama">Geniş hacim, suya dayanıklı kumaş.</div>
+      <button onclick="sepeteEkle(this)">Sepete Ekle</button>
+      <div class="bildirim">Ürün sepete eklendi!</div>
+    </div>
+    <div class="kutu">
+      <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=400&q=80" alt="Kitap">
+      <h2>Bestseller Roman</h2>
+      <div class="fiyat">₺ 99</div>
+      <div class="aciklama">Çok satan, sürükleyici bir macera romanı.</div>
+      <button onclick="sepeteEkle(this)">Sepete Ekle</button>
+      <div class="bildirim">Ürün sepete eklendi!</div>
+    </div>
+    <div class="kutu">
+      <img src="https://images.unsplash.com/photo-1503602642458-232111445657?w=400&q=80" alt="Kamera">
+      <h2>Polaroid Fotoğraf Makinesi</h2>
+      <div class="fiyat">₺ 2190</div>
+      <div class="aciklama">Anında baskı, retro tasarım, kolay kullanım.</div>
+      <button onclick="sepeteEkle(this)">Sepete Ekle</button>
+      <div class="bildirim">Ürün sepete eklendi!</div>
+    </div>
+    <div class="kutu">
+      <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&q=80" alt="Laptop">
+      <h2>Taşınabilir Dizüstü Bilgisayar</h2>
+      <div class="fiyat">₺ 13.999</div>
+      <div class="aciklama">8GB RAM, SSD disk, şık ve hafif!</div>
+      <button onclick="sepeteEkle(this)">Sepete Ekle</button>
+      <div class="bildirim">Ürün sepete eklendi!</div>
+    </div>
+    <div class="kutu">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&q=80" alt="Bardak Takımı">
+      <h2>Cam Bardak Takımı - 6'lı</h2>
+      <div class="fiyat">₺ 145</div>
+      <div class="aciklama">Şık tasarım, kırılmaz cam özellikli bardaklar.</div>
+      <button onclick="sepeteEkle(this)">Sepete Ekle</button>
+      <div class="bildirim">Ürün sepete eklendi!</div>
+    </div>
+    <div class="kutu">
+      <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&q=80" alt="Spor Ayakkabı">
+      <h2>Spor Ayakkabı</h2>
+      <div class="fiyat">₺ 649</div>
+      <div class="aciklama">Rahat taban, nefes alabilen kumaş.</div>
+      <button onclick="sepeteEkle(this)">Sepete Ekle</button>
+      <div class="bildirim">Ürün sepete eklendi!</div>
+    </div>
+    <div class="kutu">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?w=400&q=80" alt="Kamp Lambası">
+      <h2>Şarjlı Kamp Lambası</h2>
+      <div class="fiyat">₺ 179</div>
+      <div class="aciklama">Uzun pil ömrü, USB şarj, portatif yapı.</div>
+      <button onclick="sepeteEkle(this)">Sepete Ekle</button>
+      <div class="bildirim">Ürün sepete eklendi!</div>
+    </div>
+  </div>
+  <!-- Modal yapı -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" title="Kapat">&times;</button>
+      <img id="modalImg" src="" alt="Büyük Ürün Görseli">
+    </div>
+  </div>
+  <script>
+    // Sepete ekleme
+    function sepeteEkle(btn) {
+      var kutu = btn.parentElement;
+      var bildirim = kutu.querySelector('.bildirim');
+      bildirim.style.display = "block";
+      btn.disabled = true;
+      btn.textContent = "Eklendi ✓";
+      setTimeout(function() {
+        bildirim.style.display = "none";
+        btn.disabled = false;
+        btn.textContent = "Sepete Ekle";
+      }, 1200);
+    }
+
+    // Modal (resim büyütme)
+    document.querySelectorAll('.kutu img').forEach(function(img) {
+      img.addEventListener('click', function() {
+        var modal = document.getElementById('modal');
+        var modalImg = document.getElementById('modalImg');
+        modalImg.src = img.src.replace(/w=400/, 'w=1000'); // Daha büyük varsa göster
+        modalImg.alt = img.alt;
+        modal.classList.add('active');
+      });
+    });
+
+    document.getElementById('modalClose').onclick = function() {
+      document.getElementById('modal').classList.remove('active');
+      document.getElementById('modalImg').src = "";
+    };
+    // Modal dışında tıklanınca da kapat
+    document.getElementById('modal').addEventListener('click', function(e){
+      if(e.target === this){
+        this.classList.remove('active');
+        document.getElementById('modalImg').src = "";
+      }
+    });
+  </script>
+</body>
+</html>
